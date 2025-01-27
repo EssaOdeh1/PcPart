@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan PC Part</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #1976d2;
+        }
+
+        #camera-container {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            aspect-ratio: 4 / 3;
+            margin-bottom: 20px;
+            border: 2px solid #1976d2;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            background-color: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0d47a1;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #result p {
+            margin: 10px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Scan PC Part</h1>
+    <div id="camera-container">
+        <video id="camera" autoplay></video>
+    </div>
+    <button id="scanButton">Scan PC Part</button>
+    <div id="result" class="hidden">
+        <h2>Part Information</h2>
+        <p id="partName">Name: </p>
+        <p id="partDescription">Description: </p>
+        <p id="partPrice">Price: </p>
+    </div>
+
+    <script>
+        const video = document.getElementById('camera');
+        const scanButton = document.getElementById('scanButton');
+        const resultContainer = document.getElementById('result');
+        const partName = document.getElementById('partName');
+        const partDescription = document.getElementById('partDescription');
+        const partPrice = document.getElementById('partPrice');
+
+        // Access camera stream
+        async function setupCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                alert('Unable to access the camera. Please check your permissions.');
+                console.error(error);
+            }
+        }
+
+        setupCamera();
+
+        // Handle Scan Button Click
+        scanButton.addEventListener('click', async () => {
+            // Simulate scanning logic (Replace with actual OCR/barcode API integration)
+            resultContainer.classList.remove('hidden');
+            partName.textContent = 'Name: NVIDIA GeForce RTX 3080';
+            partDescription.textContent = 'Description: High-performance GPU for gaming and productivity.';
+            partPrice.textContent = 'Price: $699';
+        });
+    </script>
+</body>
+</html>
